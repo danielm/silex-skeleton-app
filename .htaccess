@@ -1,0 +1,12 @@
+Options -MultiViews
+
+RewriteEngine On
+#RewriteBase /path/to/app
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [QSA,L]
+
+# Error 404
+ErrorDocument 404 /views/errors/404.html
+
+# Error 500
+ErrorDocument 500 /views/errors/500.html
