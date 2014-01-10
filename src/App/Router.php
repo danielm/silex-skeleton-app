@@ -5,15 +5,19 @@ namespace App;
 use Silex\Application;
 use Silex\ControllerProviderInterface;
 
-use Symfony\Component\HttpFoundation\Request;
-
 class Router implements ControllerProviderInterface
 {
+        private $_file;
+
+        public function __construct($file = "routes.json") {
+            $this->_file = $file;
+        }
+
 	public function connect(Application $app)
 	{
 		$ctr = $app['controllers_factory'];
 
-		$configFile = new JsonFile(__DIR__ . '/../../data/routes.json');
+		$configFile = new JsonFile(__DIR__ . '/../../data/' . $this->_file);
 
 		$routes = $configFile->getFile();
 
