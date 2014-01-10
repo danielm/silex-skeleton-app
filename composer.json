@@ -6,11 +6,11 @@
     "license": "MIT",
     "type": "project",
     "authors": [{
-        "name": "Daniel Morales",
-        "email": "daniminas@gmail.com",
-        "homepage": "http://www.daniel.com.uy",
-        "role": "Developer"
-    }],
+            "name": "Daniel Morales",
+            "email": "daniminas@gmail.com",
+            "homepage": "http://www.daniel.com.uy",
+            "role": "Developer"
+        }],
     "require": {
         "php": ">=5.3.2",
         "silex/silex": "1.*",
