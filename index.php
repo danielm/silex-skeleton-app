@@ -50,6 +50,20 @@ $app->register(new Silex\Provider\MonologServiceProvider(), array(
    	'monolog.level' => $logging['level']
 ));
 
+// Error handling
+$app->error(function (\Exception $e, $code) use ($app) {
+    if ($app['debug']) {
+        return;
+    }
+
+    $app['monolog']->addError('Application Error: ' . $e->getMessage());
+    
+    return $app['twig']->render('errors/application.html', array(
+        'message' => $e->getMessage(),
+        'code' => $e->getCode()
+    ));
+});
+
 // Router will load/handle all our routes. See the Config section for more.
 $app->mount('', new App\Router());
 
