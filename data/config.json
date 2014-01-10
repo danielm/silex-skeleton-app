@@ -1,0 +1,20 @@
+{
+	"debug": true,
+	"timezone": "America/Montevideo",
+	"database":{
+		"driver": "pdo_mysql",
+        "host": "localhost",
+        "dbname": "my_database",
+        "user": "my_username",
+        "password": "my_password",
+        "charset": "utf8"
+	},
+	"assets": {
+		"path": "/assets/",
+		"version": "20130701-1"
+	},
+	"log": {
+		"file": "/log/development.log",
+		"level": "DEBUG"
+	}
+}

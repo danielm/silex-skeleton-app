@@ -1,0 +1,16 @@
+{
+	"home": {
+		"path": "/",
+		"controller": "App\\Controller\\Wellcome::index"
+	},
+	"rand": {
+		"path": "/rand/{max}",
+		"controller": "App\\Controller\\Wellcome::rand",
+		"asserts":{
+			"max": "\\d+"
+		},
+		"defaults":{
+			"max": 100
+		}
+	}
+}

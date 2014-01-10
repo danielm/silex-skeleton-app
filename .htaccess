@@ -1,9 +1,11 @@
-Options -MultiViews
+<IfModule mod_rewrite.c>
+    Options -MultiViews
 
-RewriteEngine On
-#RewriteBase /path/to/app
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^ index.php [QSA,L]
+    RewriteEngine On
+    #RewriteBase /path/to/app
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>
 
 # Error 404
 ErrorDocument 404 /views/errors/404.html

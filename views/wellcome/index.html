@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+  <h1>Silex Skeleton App</h1>
+</div>
+
+<p class="lead">Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS.</p>
+
+<ul>
+	<li></li>
+</ul>
+
+<hr />
+
+<h3>Example Controller</h3>
+<p>
+	This is a controller example to show how to setup routes. Use the links bellow to try it out, and see data/routes.json for more info.
+</p>
+<p><a href="{{ path('rand') }}">Click here</a> to pick a Random 1-100 number.</p>
+<p><a href="{{ path('rand', {max: 10}) }}">Click here</a> to pick a Random 1-10 number.</p>
+
+{% endblock %}

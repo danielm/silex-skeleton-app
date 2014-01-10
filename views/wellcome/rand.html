@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+  <h1>Silex Skeleton App</h1>
+</div>
+
+<p class="lead">Randomizer 1-{{ max }}</p>
+
+<p>We have picked: <strong>{{ number }}</strong> - <a href="{{ path('rand', {max: max}) }}">Roll the dice Again</a>.</p>
+
+<hr />
+
+<p>&laquo;<a href="{{ path('home') }}">Back to homepage</a></p>
+
+{% endblock %}
