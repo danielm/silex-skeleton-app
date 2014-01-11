@@ -1,6 +1,6 @@
 <?php
 /**
- * inex.php - Init our application
+ * index.php - Init our application
  * 
  * LICENSE: This source file is distributed under the MIT licence terms.
  * Read the MIT-LICENSE.txt file for details.
