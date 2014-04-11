@@ -13,7 +13,7 @@
  * @link       http://github.com/danielm/silex-skeleton-app
  */
 
-namespace Guild;
+namespace App;
 
 class Exception extends \Exception {
     
