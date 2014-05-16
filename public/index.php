@@ -71,7 +71,7 @@ $app->error(function (\Exception $e, $code) use ($app) {
 
     $app['monolog']->addError('Application Error: ' . $e->getMessage());
     
-    return $app['twig']->render('errors/application.html', array(
+    return $app['twig']->render('error.html', array(
         'message' => $e->getMessage(),
         'code' => $e->getCode()
     ));

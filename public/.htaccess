@@ -4,11 +4,12 @@
     RewriteEngine On
     #RewriteBase /path/to/app
     RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_URI} !^/assets/  [NC]
     RewriteRule ^ index.php [QSA,L]
 </IfModule>
 
 # Error 404
-ErrorDocument 404 /views/errors/404.html
+ErrorDocument 404 /assets/static/404.html
 
 # Error 500
-ErrorDocument 500 /views/errors/500.html
+ErrorDocument 500 /assets/static/500.html
