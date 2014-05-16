@@ -10,6 +10,7 @@ $ git clone http://github.com/danielm/silex-skeleton-app
 $ cd silex-skeleton-app
 $ curl -sS https://getcomposer.org/installer | php
 $ php composer.phar update
+$ cd public/
 $ php -S localhost:8080
 ```
 
