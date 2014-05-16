@@ -14,7 +14,6 @@
         "version": "20130701-1"
     },
     "log": {
-        "file": "/log/development.log",
         "level": "DEBUG"
     }
 }

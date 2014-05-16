@@ -18,7 +18,7 @@ if (php_sapi_name() === 'cli-server' && is_file($filename)) {
     return false;
 }
 
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 $app = new Silex\Application();
 
@@ -33,7 +33,7 @@ if($timezone){
 
 // Views and Helpers
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
-    'twig.path' => __DIR__ . '/views',
+    'twig.path' => __DIR__ . '/../views',
 ));
 
 $app["twig"] = $app->share($app->extend("twig", function (\Twig_Environment $twig, Silex\Application $app) {
@@ -59,7 +59,7 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
 // Logging
 $logging = $app['config']->getSection('log');
 $app->register(new Silex\Provider\MonologServiceProvider(), array(
-   	'monolog.logfile' => __DIR__ . $logging['file'],
+   	'monolog.logfile' => __DIR__ . '/../log/development.log',
    	'monolog.level' => $logging['level']
 ));
 
