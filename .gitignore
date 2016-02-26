@@ -1,6 +1,8 @@
 vendor
-composer.lock
-composer.phar
+/.vagrant/*
+/vendor/*
+/nbproject/private/*
+/composer.lock
 *.diff
-*.tmp
 *.log
+/dev.db
