@@ -1,0 +1,35 @@
+debug: true
+
+brand:
+  name: "Silex Application"
+
+timezone: "America/Montevideo"
+
+database:
+  driver: "pdo_sqlite"
+  path: "/vagrant/dev.db"
+
+log_level: "INFO"
+
+memcached:
+  prefix: "admin_panel_"
+  servers:
+    serv1:
+      host: "127.0.0.1"
+      port: 11211
+
+form_templates: ["bootstrap_3_layout.html.twig"]
+
+assets_version: "v1"
+
+mailer:
+  host: "smtp.gmail.com"
+  port: 465
+  username: "user@gmail.com"
+  password: "passwd"
+  encryption: "ssl"
+  auth_mode: "login"
+
+mail:
+  from: "user@gmail.com"
+  name: "Silex Application"

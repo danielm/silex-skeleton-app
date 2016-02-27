@@ -1,0 +1,35 @@
+{
+	"name": "danielm/silex-skeleton-app",
+	"description": "Base Silex Application (skeleton) to get a new project going and organize the code (my approach)",
+	"homepage": "http://github.com/danielm/silex-skeleton-app",
+	"keywords": ["Silex", "Twig", "Doctrine", "Bootstrap", "Symfony", "CMS", "PHP", "Skeleton", "SF2"],
+	"license": "MIT",
+	"type": "project",
+	"authors": [{
+			"name": "Daniel Morales",
+			"email": "daniminas@gmail.com",
+			"homepage": "http://www.daniel.uy",
+			"role": "Developer"
+	}],
+	"require": {
+		"php": ">=5.5.9",
+		"silex/silex": "~2.0",
+		"symfony/twig-bridge": "^2.8",
+		"twig/twig": "^1.18",
+		"doctrine/dbal": "~2.2",
+		"monolog/monolog": "~1.12",
+		"symfony/var-dumper": "^2.8",
+		"symfony/translation": "^2.8",
+		"swiftmailer/swiftmailer": "~5.4",
+		"symfony/config": "^2.8",
+		"symfony/yaml": "^2.8",
+		"symfony/form": "^2.8",
+		"symfony/validator": "^2.8",
+		"symfony/asset": "^2.8"
+	},
+	"autoload": {
+		"psr-4": {
+			"App\\": "app/src/"
+		}
+	}
+}

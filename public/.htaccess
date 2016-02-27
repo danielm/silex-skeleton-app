@@ -1,0 +1,27 @@
+# Handler.
+DirectoryIndex index.php index.html index.htm
+
+# Directory listing
+Options -Indexes
+
+<IfModule mod_negotiation.c>
+	Options -MultiViews
+</IfModule>
+
+<IfModule mod_rewrite.c>
+	RewriteEngine on
+
+	#RewriteBase /path/to/app
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-
+	RewriteCond %{REQUEST_URI} !^/assets/  [NC]
+	RewriteCond %{REQUEST_URI} !=/favicon.ico
+	RewriteRule ^ ./index.php [L]
+
+</IfModule>
+
+# Error 404
+ErrorDocument 404 /assets/static/404.html
+
+# Error 500
+ErrorDocument 500 /assets/static/500.html

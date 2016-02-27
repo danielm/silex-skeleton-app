@@ -2,3 +2,9 @@
 - HTTP Cache config
 - Unit Tests
 - .... moar
+
+2.0:
+  Check all providers
+  Router/Mount config
+  Handle errors
+  
