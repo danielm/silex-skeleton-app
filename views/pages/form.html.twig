@@ -1,0 +1,14 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Bootstrap Forms{% endblock %}
+
+{% block container %}
+	<div class="container">
+		<div class="col-sm-offset-2 col-sm-10">
+			<h2 class="page-header">Simple Bootstrap From <small>Vertical</small></h2>
+		</div>
+
+		{{ form(form, {'action': path('form'), 'method': 'POST'}) }}
+		
+	</div><!-- /.container -->
+{% endblock %}

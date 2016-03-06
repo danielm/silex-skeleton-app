@@ -5,6 +5,7 @@ brand:
 
 timezone: "America/Montevideo"
 
+# Doctrine Provider
 database:
   driver: "pdo_sqlite"
   path: "/vagrant/dev.db"
@@ -18,10 +19,12 @@ memcached:
       host: "127.0.0.1"
       port: 11211
 
-form_templates: ["bootstrap_3_layout.html.twig"]
+form_templates: ["bootstrap_3_horizontal_layout.html.twig"]
+#bootstrap_3_layout.html.twig
 
 assets_version: "v1"
 
+#Swiftmailer Provider
 mailer:
   host: "smtp.gmail.com"
   port: 465
@@ -33,3 +36,22 @@ mailer:
 mail:
   from: "user@gmail.com"
   name: "Silex Application"
+
+router:
+  mountpoints:
+    main:
+      path: "/"
+      controller: "App\Controller\Main"
+  routes:
+    rand:
+      path: "/rand/{max}"
+      controller: "App\Controller\Test::rand"
+      method: "get"
+      asserts:
+        max: "\d+"
+      defaults:
+        max: 100
+    form:
+      path: "/form"
+      method: "get"
+      controller: "App\Controller\Test::form"

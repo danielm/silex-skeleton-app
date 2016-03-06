@@ -1,43 +1,51 @@
 <?php
-
+/**
+ * Application.php - Silex Skeleton Application
+ * 
+ * LICENSE: This source file is distributed under the MIT licence terms.
+ * Read the MIT-LICENSE.txt file for details.
+ *
+ * @package    Silex Skeleton Application
+ * @author     Daniel Morales <daniminas@gmail.com>
+ * @copyright  2014-2016 Daniel Morales
+ * @license    MIT-LICENSE.txt
+ * @version    0.2
+ * @link       http://github.com/danielm/silex-skeleton-app
+ */
 namespace App;
 
-use Symfony\Component\Translation\Loader\YamlFileLoader;
-use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
-use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Silex;
 use App;
 
 class Application extends Silex\Application {
 
-	public function initBackend() {
+	public function initApplication() {
 		$this->initConfig();
 
 		$this['debug'] = $this['config']->get('debug');
 		if ($this['debug']) {
-			\error_reporting(E_ALL);
-			\ini_set('display_errors', '1');
+			error_reporting(E_ALL);
+			ini_set('display_errors', '1');
 		}
 
-		$timezone = $this['config']->get('timezone');
-		if ($timezone) {
-			\date_default_timezone_set($timezone);
+		if ($timezone = $this['config']->get('timezone')) {
+			date_default_timezone_set($timezone);
 		}
 
-		if ($this['config']->get('memcached')){
-			$this->initCache();
-		}
+		$this->initCache();
 		$this->initTwig();
 		$this->initDoctrine();
 		$this->initSession();
 		$this->initLogging();
+		$this->initLocales();
 		$this->initForms();
 		$this->initAssets();
 		$this->initSwiftmailer();
 
-		$this->get('/', function () {
-			return $this['twig']->render('pages/home.html.twig');
-		});
+		$this->initControllers();
+
+		// Handlers
+        $this->error(array($this, 'errorHandler'));
 	}
 
 	protected function initConfig() {
@@ -47,9 +55,11 @@ class Application extends Silex\Application {
 	}
 
 	protected function initCache() {
-		$this->register(new App\Provider\MemcachedProvider(), array(
-			'memcached.options' => $this['config']->get('memcached')
-		));
+		if($config = $this['config']->get('memcached')){
+			$this->register(new App\Provider\MemcachedProvider(), array(
+				'memcached.options' => $config
+			));
+		}
 	}
 
 	protected function initTwig() {
@@ -86,11 +96,21 @@ class Application extends Silex\Application {
 		));
 	}
 
+	protected function initLocales() {
+		$this->register(new Silex\Provider\LocaleServiceProvider());
+		$this->register(new Silex\Provider\TranslationServiceProvider(), array(
+    		'translator.domains' => array(),
+		));
+	}
+
 	protected function initForms() {
 		$this->register(new Silex\Provider\FormServiceProvider());
 		$this->register(new Silex\Provider\ValidatorServiceProvider());
 
-		$this['twig.form.templates'] = $this['config']->get('form_templates');
+		$template = $this['config']->get('form_templates');
+		if ($template) {
+			$this['twig.form.templates'] = $template;
+		}
 	}
 
 	protected function initAssets() {
@@ -101,9 +121,51 @@ class Application extends Silex\Application {
 	}
 
 	protected function initSwiftmailer() {
-		$this->register(new Silex\Provider\SwiftmailerServiceProvider());
+		if ($config = $this['config']->get('mailer')) {
+			$this->register(new Silex\Provider\SwiftmailerServiceProvider());
 
-		$this['swiftmailer.options'] = $this['config']->get('mailer');
+			$this['swiftmailer.options'] = $config;
+		}
 	}
 
+	protected function initControllers() {
+		/* Mount points */
+		$controllers = $this['config']->get('router/mountpoints', []);
+		foreach ($controllers as $name => $controller) {
+			$this->mount($controller['path'], new $controller['controller']());
+		}
+
+		/* Individual routes */
+		$routes = $this['config']->get('router/routes', []);
+		foreach ($routes as $name => $info) {
+			$method = isset($info['method']) ? $info['method'] : 'match';
+			$route = $this->$method($info['path'], $info['controller']);
+			if (isset($info['asserts'])) {
+				foreach ($info['asserts'] as $var => $regex) {
+					$route->assert($var, $regex);
+				}
+			}
+			if (isset($info['defaults'])) {
+				foreach ($info['defaults'] as $var => $val) {
+					$route->value($var, $val);
+				}
+			}
+			$route->bind($name);
+        }
+	}
+
+	public function errorHandler(\Exception $exception) {
+		if ($this['debug']) {
+			return;
+		}
+
+		$this['monolog']->addError('Application Error: ' . $exception->getMessage());
+
+		return $this['twig']->render('pages/error.html.twig', array(
+			'message' => $exception->getMessage(),
+			'code'    => $exception->getCode(),
+			'trace'   => $exception->getTraceAsString(),
+			'class'   => get_class($exception)
+		));
+	}
 }

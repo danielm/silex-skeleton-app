@@ -1,12 +1,24 @@
 <?php
-
+/**
+ * Config.php - Silex Skeleton Application
+ * 
+ * LICENSE: This source file is distributed under the MIT licence terms.
+ * Read the MIT-LICENSE.txt file for details.
+ *
+ * @package    Silex Skeleton Application
+ * @author     Daniel Morales <daniminas@gmail.com>
+ * @copyright  2014-2016 Daniel Morales
+ * @license    MIT-LICENSE.txt
+ * @version    0.2
+ * @link       http://github.com/danielm/silex-skeleton-app
+ */
 namespace App;
 
+use Symfony\Component\Filesystem\Exception\FileNotFoundException;
+use Symfony\Component\Filesystem\Exception\IOException;
+use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Parser;
 use Silex;
-
-/*use Symfony\Component\Filesystem\Exception\IOException;
-use Symfony\Component\Filesystem\Filesystem;*/
 
 class Config {
 
@@ -75,14 +87,20 @@ class Config {
 	private function parseYaml() {
 		$parser = new Parser();
 
-		if (!is_readable($this->filename)) {
-			return [];
+		if (false === is_file($this->filename)) {
+			throw new FileNotFoundException(sprintf('Config file not found "%s".', $this->filename));
 		}
 
-		$yml = $parser->parse(file_get_contents($this->filename) . "\n");
+		if (false === $config = @file_get_contents($this->filename)) {
+			throw new IOException(sprintf('Failed to load config file "%s".', $this->filename));
+		}
 
-		unset($yml['__nodes']);
+		try {
+			$config = $parser->parse($config);
+		} catch (ParseException $e) {
+			throw new IOException(sprintf('Failed to parse config file "%s". %s', $this->filename, $e->getMessage()), $e->getCode(), $e);
+		}
 
-		return $yml ? : [];
+		return $config;
 	}
 }

@@ -1,10 +1,17 @@
 - Middlewares on routes config
 - HTTP Cache config
 - Unit Tests
+- Localization
+- Form Types
+- Cache config files
+- Config: Form Types
+- Config: Twig Extensions
+- Document code!
+- mb_internal_encoding && mb_http_output ?
 - .... moar
 
-2.0:
-  Check all providers
-  Router/Mount config
-  Handle errors
-  
+0.2:
+  X Check all providers
+  X Router/Mount config
+  X Handle errors
+  X Twig function / Helper: para agregar la clase active

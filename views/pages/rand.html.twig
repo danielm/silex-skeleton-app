@@ -1,0 +1,29 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Rand{% endblock %}
+
+{% block container %}
+
+	<div class="container">
+		<div class="starter-template">
+			<h1 class="page-header">Simple Route Controller</h1>
+
+			<p class="lead">Randomizer 1-{{ max }}</p>
+
+			<p>
+				We have picked: <strong>{{ number }}</strong> -
+				<a href="{{ path('rand', {max: max}) }}">Roll again</a>
+			</p>
+			<p>
+				[<a href="{{ path('rand', {max: 100}) }}">Roll 1-100</a>]
+				[<a href="{{ path('rand', {max: 500}) }}">Roll 1-500</a>]
+				[<a href="{{ path('rand', {max: 1000}) }}">Roll 1-1000</a>]
+			</p>
+
+			<hr />
+
+			<p>&laquo;<a href="{{ path('home') }}">Back to homepage</a></p>
+		</div>
+	</div><!-- /.container -->
+
+{% endblock %}

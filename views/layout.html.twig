@@ -32,13 +32,13 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#">Silex Application</a>
+					<a class="navbar-brand" href="{{ path('home') }}">Silex Application</a>
 				</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="#">Home</a></li>
-						<li><a href="#about">About</a></li>
-						<li><a href="#contact">Contact</a></li>
+						<li class="{{ path('home')|active }}"><a href="{{ path('home') }}">Home</a></li>
+						<li class="{{ path('rand')|active }}"><a href="{{ path('rand') }}">Simple Route</a></li>
+						<li class="{{ path('form')|active }}"><a href="{{ path('form') }}">Bootstrap Forms</a></li>
 					</ul>
 				</div><!--/.nav-collapse -->
 			</div>

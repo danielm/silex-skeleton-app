@@ -9,23 +9,20 @@ Created by Daniel Morales. [Contact Me](mailto:daniminas@gmail.com) for more inf
 $ git clone http://github.com/danielm/silex-skeleton-app
 $ cd silex-skeleton-app
 $ curl -sS https://getcomposer.org/installer | php
-$ php composer.phar update
-$ cd public/
-$ php -S localhost:8080
+$ php composer.phar install
 ```
 
 ##Basics
 
 ###Configuration Files
-* ```data/config.json```: Basic configuration vars. Use ```$app['config']->getSection('varName')```  on your controllers to access your custom configuration variables.
-* ```data/routes.json```: Simple router configuration. 
+* ```config/general.yml```: Basic configuration vars. Use ```$app['config']->get('varName')```  on your controllers to access your custom configuration variables.
 
 ###Controllers
-```src/App/Controller/*.php```: Check ```data/routes.json``` out to map routes/controllers.
+```src/App/Controller/*.php```: Check ```config/general.yml``` out to map routes/controllers.
 
 ###Views
-```views/*.html```: Designers corner
+```views/*.html.twig```: Designers corner
 
 ###Custom Twig Extensions (Functions and Filters)
-```src/App/TwigExtensions.php``` As example I included one asset extension. Use ```{{ asset('/css/app.main.css') }}``` on your views to get a url-safe and versioned path for your assets.
+```src/App/TwigExtensions.php``` Basic extension to add custom Twig functions and filters.
 
