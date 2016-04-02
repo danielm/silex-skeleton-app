@@ -27,9 +27,9 @@ class TwigExtension extends \Twig_Extension {
 	}
 
 	public function getFilters() {
-		return array(
+		return [
 			"active" => new \Twig_Filter_Method($this, "active"),
-		);
+		];
 	}
 
 	/*
@@ -50,8 +50,8 @@ class TwigExtension extends \Twig_Extension {
 	}
 
 	/*public function getFunctions() {
-		return array(
+		return [
 			"active" => new \Twig_Function_Method($this, 'active')
-		);
+		];
 	}*/
 }

@@ -23,7 +23,7 @@ class Main implements ControllerProviderInterface {
 	public function connect(Application $app) {
 		$controllers = $app['controllers_factory'];
 
-		$controllers->get('/', array($this, 'homepage'))
+		$controllers->get('/', [$this, 'homepage'])
 				->bind('home');
 
 		return $controllers;

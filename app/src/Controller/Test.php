@@ -21,10 +21,10 @@ class Test {
     public static function rand(Request $request, Application $app, $max) {
         $number = rand(1, $max);
 
-        return $app['twig']->render('pages/rand.html.twig', array(
+        return $app['twig']->render('pages/rand.html.twig', [
             "max" => $max,
             "number" => $number
-        ));
+        ]);
     }
 
     public static function form(Request $request, Application $app) {
@@ -63,8 +63,8 @@ class Test {
 			// Do something
 		}
 
-        return $app['twig']->render('pages/form.html.twig', array(
+        return $app['twig']->render('pages/form.html.twig', [
             'form' => $form->createView()
-        ));
+        ]);
     }
 }

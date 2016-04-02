@@ -45,31 +45,31 @@ class Application extends Silex\Application {
 		$this->initControllers();
 
 		// Handlers
-        $this->error(array($this, 'errorHandler'));
+        $this->error([$this, 'errorHandler']);
 	}
 
 	protected function initConfig() {
-		$this->register(new App\Provider\ConfigProvider('config'), array(
+		$this->register(new App\Provider\ConfigProvider('config'), [
 			'config.file' => __DIR__ . '/../../config/general.yml'
-		));
+		]);
 	}
 
 	protected function initCache() {
 		if($config = $this['config']->get('memcached')){
-			$this->register(new App\Provider\MemcachedProvider(), array(
+			$this->register(new App\Provider\MemcachedProvider(), [
 				'memcached.options' => $config
-			));
+			]);
 		}
 	}
 
 	protected function initTwig() {
-		$this->register(new Silex\Provider\TwigServiceProvider(), array(
+		$this->register(new Silex\Provider\TwigServiceProvider(), [
 			'twig.path' => __DIR__ . '/../../views',
-			'twig.options' => array(
+			'twig.options' => [
 				'cache' => $this['debug'] ? __DIR__ . '/../../cache/twig' : false,
 				'auto_reload' => $this['debug']
-			)
-		));
+			]
+		]);
 
 		$this->extend('twig', function($twig, $app) {
 			$twig->addExtension(new App\TwigExtension($app));
@@ -82,25 +82,25 @@ class Application extends Silex\Application {
 	}
 
 	protected function initDoctrine() {
-		$this->register(new Silex\Provider\DoctrineServiceProvider(), array(
+		$this->register(new Silex\Provider\DoctrineServiceProvider(), [
 			'db.options' => $this['config']->get('database'),
-		));
+		]);
 	}
 
 	protected function initLogging() {
 		$this->register(new Silex\Provider\VarDumperServiceProvider());
 
-		$this->register(new Silex\Provider\MonologServiceProvider(), array(
+		$this->register(new Silex\Provider\MonologServiceProvider(), [
 			'monolog.logfile' => __DIR__ . '/../../logs/development.log',
 			'monolog.level' => $this['config']->get('log_level')
-		));
+		]);
 	}
 
 	protected function initLocales() {
 		$this->register(new Silex\Provider\LocaleServiceProvider());
-		$this->register(new Silex\Provider\TranslationServiceProvider(), array(
-    		'translator.domains' => array(),
-		));
+		$this->register(new Silex\Provider\TranslationServiceProvider(), [
+    		'translator.domains' => [],
+		]);
 	}
 
 	protected function initForms() {
@@ -114,10 +114,10 @@ class Application extends Silex\Application {
 	}
 
 	protected function initAssets() {
-		$this->register(new Silex\Provider\AssetServiceProvider(), array(
+		$this->register(new Silex\Provider\AssetServiceProvider(), [
 			'assets.version' => $this['config']->get('assets_version'),
 			'assets.version_format' => '%s?version=%s'
-		));
+		]);
 	}
 
 	protected function initSwiftmailer() {
@@ -161,11 +161,11 @@ class Application extends Silex\Application {
 
 		$this['monolog']->addError('Application Error: ' . $exception->getMessage());
 
-		return $this['twig']->render('pages/error.html.twig', array(
+		return $this['twig']->render('pages/error.html.twig', [
 			'message' => $exception->getMessage(),
 			'code'    => $exception->getCode(),
 			'trace'   => $exception->getTraceAsString(),
 			'class'   => get_class($exception)
-		));
+		]);
 	}
 }
